@@ -21,20 +21,18 @@ class Neighborhood{
     })
   }
 
-  // meals(){
-  //   const blah = this.customers().map( customer =>{
-  //     customer.meals()
-  //   });
-  //    const merged = [].concat.apply([], blah);
-  //   console.log(merged);
-  // }
-
-  meals() {
-    const allMeals = this.customers().map(customer => customer.meals());
-    const merged = [].concat.apply([], allMeals);
-    return [...new Set(merged)];
+  meals(){
+    const meals = this.customers().map( customer =>{
+      return customer.meals()
+    });
+    let mealsArr = [...meals[0]]
+    mealsArr = mealsArr.filter(function(item, pos){
+      return mealsArr.indexOf(item) == pos;
+    });
+    return (mealsArr);
   }
-  // const allMeals = this.customers().map(customer => customer.meals());
+
+
 }
 
 let mealId = 0;
@@ -89,6 +87,8 @@ class Customer{
   totalSpent() {
   return this.meals().reduce((total, meal) => (total += meal.price), 0);
 }
+
+
 }
 
 let deliveryId = 0;
